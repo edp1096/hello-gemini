@@ -1,0 +1,66 @@
+<html>
+
+<body>
+    <script type="importmap">
+      {
+        "imports": {
+          "@google/generative-ai": "https://esm.run/@google/generative-ai"
+        }
+      }
+    </script>
+
+    <div>
+        <label>Question:</label>
+        <textarea id="context"></textarea>
+        <div>
+            Answer:
+            <span id="answer"></span>
+        </div>
+
+        <button onclick="sendQuestion()">Send</button>
+    </div>
+</body>
+
+<script type="module">
+    import { GoogleGenerativeAI } from "@google/generative-ai"
+    // import { GOOGLE_GEMINI_API_KEY } from "api_key.js"
+    import { GOOGLE_GEMINI_API_KEY } from "./api_key_my.js"
+
+    const API_KEY = GOOGLE_GEMINI_API_KEY
+    const genAI = new GoogleGenerativeAI(API_KEY)
+    const model = genAI.getGenerativeModel({ model: "gemini-pro" })
+
+    async function sendQuestion() {
+        const prompt = document.querySelector("#context")
+        const answer = document.querySelector("#answer")
+
+        if (prompt.value == "") {
+            answer.innerHTML = "Too short"
+            return
+        }
+
+        const result = await model.generateContent(prompt.value)
+        const response = await result.response
+        const text = response.text()
+
+        const lines = text.split('\n')
+        lines.shift()
+        lines.pop()
+
+        console.log(text)
+
+        // answer.innerHTML = text.replace("\n", "<br />")
+        answer.innerHTML = lines.join("<br />")
+    }
+
+    function sendQuestionEnterKey(event) {
+        if (event.keyCode == 13) {
+            sendQuestion()
+        }
+    }
+
+    window.sendQuestion = sendQuestion
+    window.sendQuestionEnterKey = sendQuestionEnterKey
+</script>
+
+</html>

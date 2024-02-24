@@ -1,0 +1,10 @@
+:8864 {
+	# root * /var/www/html
+	# root * /home/swshin/workspace/pet.ajirangi.com
+	root * .
+	# php_fastcgi unix//run/php/php-fpm.sock
+	php_fastcgi unix//run/php/php7.4-fpm.sock
+	# php_fastcgi 127.0.0.1:9000
+	file_server
+	encode gzip
+}
