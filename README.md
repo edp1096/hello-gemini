@@ -36,6 +36,10 @@ $$HERE$$
 </html>
 ```
 
-Please complete code for $$HERE$$.
-Show only code and except my existing prompt.
+<!-- Please show next line code for $$HERE$$.
+Show only code and except my existing prompt or description. -->
+
+<!-- Please complete code and closing for $$HERE$$.
+Show only code and except my existing prompt or description. -->
+
 <pre>
